@@ -50,18 +50,20 @@
         }
         /* Hide the iframe to only play sound */
         .youtube-audio {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-            width: 0;
-            height: 0;
+            display: none;
         }
     </style>
     <script>
         let poemLines = [];
         let currentLine = 0;
 
+        function playAudio() {
+            const iframe = document.querySelector('.youtube-audio');
+            iframe.src += "&autoplay=1"; // Start the audio when user interacts
+        }
+
         function showPoem() {
+            playAudio(); // Start playing audio
             const poem = document.getElementById('poem');
             poem.style.display = 'block';
             poemLines = poem.getElementsByTagName('p');
@@ -75,7 +77,7 @@
                 poemLines[currentLine].style.display = 'block';
                 poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
                 currentLine++;
-                setTimeout(revealNextLine, 1000);  // Delay for the next line to appear
+                setTimeout(revealNextLine, 1000); // Delay for the next line to appear
             }
         }
 
@@ -86,10 +88,10 @@
     </script>
 </head>
 <body>
-    <!-- Invisible YouTube audio player -->
+    <!-- YouTube audio player -->
     <iframe 
         class="youtube-audio" 
-        src="https://www.youtube.com/embed/xtsWsebfEtw?autoplay=1&loop=1&playlist=xtsWsebfEtw&mute=0" 
+        src="https://www.youtube.com/embed/xtsWsebfEtw?loop=1&playlist=xtsWsebfEtw&mute=0" 
         frameborder="0" 
         allow="autoplay">
     </iframe>
