@@ -21,6 +21,9 @@
             font-size: 18px;
             line-height: 1.6;
             color: #333;
+            height: 300px; /* Set a fixed height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-right: 10px; /* Prevent scrollbar overlap */
         }
         button {
             padding: 10px 20px;
@@ -48,52 +51,55 @@
                 opacity: 1;
             }
         }
-        /* Hide the iframe visually but keep it functional */
-        #youtube-audio {
+        /* Hide the iframe to only play sound */
+        .youtube-audio {
             position: absolute;
+            top: -9999px;
             left: -9999px;
+            width: 0;
+            height: 0;
         }
     </style>
     <script>
-        function playAudio() {
-            const iframe = document.getElementById('youtube-audio');
-            iframe.src += "&autoplay=1"; // Trigger autoplay after user interaction
-        }
+        let poemLines = [];
+        let currentLine = 0;
 
         function showPoem() {
-            playAudio(); // Start playing the audio
             const poem = document.getElementById('poem');
             poem.style.display = 'block';
-            const poemLines = poem.getElementsByTagName('p');
-            let currentLine = 0;
+            poemLines = poem.getElementsByTagName('p');
+            currentLine = 0;
 
-            function revealNextLine() {
-                if (currentLine < poemLines.length) {
-                    poemLines[currentLine].style.display = 'block';
-                    poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
-                    currentLine++;
-                    setTimeout(revealNextLine, 1000); // Delay for the next line to appear
-                }
-            }
             revealNextLine();
+        }
+
+        function revealNextLine() {
+            if (currentLine < poemLines.length) {
+                poemLines[currentLine].style.display = 'block';
+                poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
+                currentLine++;
+
+                // Scroll to the bottom of the poem after each line is revealed
+                const poem = document.getElementById('poem');
+                poem.scrollTop = poem.scrollHeight;
+
+                setTimeout(revealNextLine, 1000);  // Delay for the next line to appear
+            }
         }
 
         function kickUser() {
             alert('You have chosen "No". Redirecting...');
-            window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds';
+            window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds'; // Replace with your desired URL
         }
     </script>
 </head>
 <body>
-    <!-- Hidden YouTube iframe -->
-    <iframe
-        id="youtube-audio"
-        width="0"
-        height="0"
-        src="https://www.youtube.com/embed/xtsWsebfEtw?enablejsapi=1&loop=1&playlist=xtsWsebfEtw&controls=0&showinfo=0&modestbranding=1"
-        frameborder="0"
-        allow="autoplay"
-        allowfullscreen>
+    <!-- Invisible YouTube audio player -->
+    <iframe 
+        class="youtube-audio" 
+        src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID?autoplay=1&loop=1&playlist=YOUTUBE_VIDEO_ID&mute=0" 
+        frameborder="0" 
+        allow="autoplay">
     </iframe>
 
     <div class="container">
