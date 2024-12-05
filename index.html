@@ -48,22 +48,37 @@
                 opacity: 1;
             }
         }
-        /* Hide the iframe to only play sound */
-        .youtube-audio {
-            display: none;
-        }
     </style>
     <script>
         let poemLines = [];
         let currentLine = 0;
+        let player;
 
-        function playAudio() {
-            const iframe = document.querySelector('.youtube-audio');
-            iframe.src += "&autoplay=1"; // Start the audio when user interacts
+        // YouTube Player API Script
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-audio', {
+                videoId: 'xtsWsebfEtw', // Replace with your YouTube video ID
+                events: {
+                    onReady: function(event) {
+                        // Player is ready
+                    }
+                },
+                playerVars: {
+                    autoplay: 0, // Will autoplay when triggered
+                    loop: 1,
+                    playlist: 'xtsWsebfEtw', // Loop the video
+                    controls: 0, // Hide video controls
+                    showinfo: 0,
+                    modestbranding: 1,
+                    mute: 0
+                }
+            });
         }
 
         function showPoem() {
-            playAudio(); // Start playing audio
+            // Play audio when "Yes" is clicked
+            player.playVideo();
+
             const poem = document.getElementById('poem');
             poem.style.display = 'block';
             poemLines = poem.getElementsByTagName('p');
@@ -86,15 +101,11 @@
             window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds'; // Replace with your desired URL
         }
     </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
     <!-- YouTube audio player -->
-    <iframe 
-        class="youtube-audio" 
-        src="https://www.youtube.com/embed/xtsWsebfEtw?loop=1&playlist=xtsWsebfEtw&mute=0" 
-        frameborder="0" 
-        allow="autoplay">
-    </iframe>
+    <div id="youtube-audio"></div>
 
     <div class="container">
         <h1>Do you believe in "Everlasting?"</h1>
