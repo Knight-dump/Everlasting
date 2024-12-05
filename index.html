@@ -48,48 +48,24 @@
                 opacity: 1;
             }
         }
+        /* Hide the iframe visually but keep it functional */
+        #youtube-audio {
+            position: absolute;
+            left: -9999px;
+        }
     </style>
     <script>
-        let player;
-        let currentLine = 0;
-
-        // Initialize YouTube Player
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-audio', {
-                videoId: 'xtsWsebfEtw', // Replace with your YouTube video ID
-                playerVars: {
-                    autoplay: 0, // Will autoplay when triggered
-                    loop: 1,
-                    playlist: 'xtsWsebfEtw', // Ensures looping
-                    controls: 0, // Hides controls
-                    showinfo: 0,
-                    modestbranding: 1,
-                    mute: 0 // Ensure sound is not muted
-                },
-                events: {
-                    onReady: onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            console.log('Player ready');
-        }
-
         function playAudio() {
-            if (player) {
-                player.playVideo(); // Start playback immediately
-            } else {
-                console.error('Player not initialized');
-            }
+            const iframe = document.getElementById('youtube-audio');
+            iframe.src += "&autoplay=1"; // Trigger autoplay after user interaction
         }
 
         function showPoem() {
-            playAudio(); // Trigger audio playback
+            playAudio(); // Start playing the audio
             const poem = document.getElementById('poem');
             poem.style.display = 'block';
             const poemLines = poem.getElementsByTagName('p');
-            currentLine = 0;
+            let currentLine = 0;
 
             function revealNextLine() {
                 if (currentLine < poemLines.length) {
@@ -107,11 +83,18 @@
             window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds';
         }
     </script>
-    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <!-- Hidden YouTube player -->
-    <div id="youtube-audio"></div>
+    <!-- Hidden YouTube iframe -->
+    <iframe
+        id="youtube-audio"
+        width="0"
+        height="0"
+        src="https://www.youtube.com/embed/xtsWsebfEtw?enablejsapi=1&loop=1&playlist=xtsWsebfEtw&controls=0&showinfo=0&modestbranding=1"
+        frameborder="0"
+        allow="autoplay"
+        allowfullscreen>
+    </iframe>
 
     <div class="container">
         <h1>Do you believe in "Everlasting?"</h1>
