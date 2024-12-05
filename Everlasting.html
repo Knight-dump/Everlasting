@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everlasting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .poem {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .yes-button {
+            background-color: #4caf50;
+            color: white;
+        }
+        .no-button {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+    <script>
+        function showPoem() {
+            document.getElementById('poem').style.display = 'block';
+        }
+
+        function kickUser() {
+            alert('You have chosen "No". Redirecting...');
+            window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds'; // Replace with your desired URL
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Do you believe in "Everlasting?"</h1>
+        <button class="yes-button" onclick="showPoem()">Yes</button>
+        <button class="no-button" onclick="kickUser()">No</button>
+        <div id="poem" class="poem">
+            <p>Let me not count love as a fleeting of art,</p>
+            <p>It stands like a beacon, fixed within the heart,</p>
+            <p>Everlasting bind its truth to time or ruthless tide,</p>
+            <p>Unmoved by raging storms where ships collide.</p>
+            <p>Love alters not when it alteration finds,</p>
+            <p>Its trueness shines bright in shadowed minds,</p>
+            <p>Not be bend beneath the heavy weight of passing years;</p>
+            <p>Everlasting flame that glows despite the night of fears.</p>
+            <p>Though beauty’s may wither, fade, and die,</p>
+            <p>Love remnants, as stars in thy boundless sky,</p>
+            <p>And youths retreat to time’s unyielding hand,</p>
+            <p>An everlasting thread that nothing can withstand.</p>
+            <p>If this be spurious, and ever be ever proved untrue,</p>
+            <p>Then faith and truth are myths, just like the phrase "I love you."</p>
+        </div>
+    </div>
+</body>
+</html>
