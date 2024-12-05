@@ -15,7 +15,7 @@
         .container {
             margin-top: 100px;
         }
-        .poem {
+        .poem, .essay {
             display: none;
             margin-top: 20px;
             font-size: 18px;
@@ -41,7 +41,11 @@
             background-color: #f44336;
             color: white;
         }
-        .poem p {
+        .next-button {
+            background-color: #4caf50;
+            color: white;
+        }
+        .poem p, .essay p {
             display: none;
             opacity: 0;
             animation: fadeIn 1s forwards;
@@ -62,34 +66,73 @@
     </style>
     <script>
         let poemLines = [];
-        let currentLine = 0;
+        let essayLines = [];
+        let currentPoemLine = 0;
+        let currentEssayLine = 0;
 
         function showPoem() {
             const poem = document.getElementById('poem');
             poem.style.display = 'block';
             poemLines = poem.getElementsByTagName('p');
-            currentLine = 0;
+            currentPoemLine = 0;
 
-            revealNextLine();
+            revealNextPoemLine();
         }
 
-        function revealNextLine() {
-            if (currentLine < poemLines.length) {
-                poemLines[currentLine].style.display = 'block';
-                poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
-                currentLine++;
+        function revealNextPoemLine() {
+            if (currentPoemLine < poemLines.length) {
+                poemLines[currentPoemLine].style.display = 'block';
+                poemLines[currentPoemLine].style.animation = `fadeIn 1s forwards`;
+                currentPoemLine++;
 
                 // Scroll to the bottom of the poem after each line is revealed
                 const poem = document.getElementById('poem');
                 poem.scrollTop = poem.scrollHeight;
 
-                setTimeout(revealNextLine, 1000);  // Delay for the next line to appear
+                setTimeout(revealNextPoemLine, 1000);  // Delay for the next line to appear
+            } else {
+                // Show "Next" button when the last poem line is revealed
+                const nextButton = document.getElementById('nextButton');
+                nextButton.style.display = 'inline-block';
+            }
+        }
+
+        function showEssay() {
+            const essay = document.getElementById('essay');
+            essay.style.display = 'block';
+            essayLines = essay.getElementsByTagName('p');
+            currentEssayLine = 0;
+
+            revealNextEssayLine();
+        }
+
+        function revealNextEssayLine() {
+            if (currentEssayLine < essayLines.length) {
+                essayLines[currentEssayLine].style.display = 'block';
+                essayLines[currentEssayLine].style.animation = `fadeIn 1s forwards`;
+                currentEssayLine++;
+
+                // Scroll to the bottom of the essay after each line is revealed
+                const essay = document.getElementById('essay');
+                essay.scrollTop = essay.scrollHeight;
+
+                setTimeout(revealNextEssayLine, 1000);  // Delay for the next line to appear
             }
         }
 
         function kickUser() {
             alert('You have chosen "No". Redirecting...');
             window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds'; // Replace with your desired URL
+        }
+
+        function goToNext() {
+            // Clear the page content and show the essay
+            const poemSection = document.getElementById('poem');
+            const nextButton = document.getElementById('nextButton');
+            poemSection.style.display = 'none';
+            nextButton.style.display = 'none';
+
+            showEssay();
         }
     </script>
 </head>
@@ -106,6 +149,8 @@
         <h1>Do you believe in "Everlasting?"</h1>
         <button class="yes-button" onclick="showPoem()">Yes</button>
         <button class="no-button" onclick="kickUser()">No</button>
+
+        <!-- Poem content -->
         <div id="poem" class="poem">
             <p>Let me not count love as a fleeting of art,</p>
             <p>It stands like a beacon, fixed within the heart,</p>
@@ -121,6 +166,16 @@
             <p>An everlasting thread that nothing can withstand.</p>
             <p>If this be spurious, and ever be ever proved untrue,</p>
             <p>Then faith and truth are myths, just like the phrase "I love you."</p>
+        </div>
+
+        <!-- Next Button (appears after last poem line) -->
+        <button id="nextButton" class="next-button" onclick="goToNext()" style="display: none;">Next</button>
+
+        <!-- Essay content -->
+        <div id="essay" class="essay">
+            <p>Happy Birthday Euneun, I'm not doing this with a thought of being "okay" with you, well I won't mind if that would happen, but yeah I'll cut to the chase and say it. First for you to know I'm not whom you may know I am, confusing but keep reading, maybe by losing you I recovered "me" myself.</p>
+            <p>Second that "me" I'm talking about is currently doing good, I hope you also do, this "me" still holds the feelings of that grade 8, December 5, and that's also the reason I'm writing this somewhat of a essay. I hope you're doing well and will keep doing well, know that I'll keep my distance for I know what I did but yeah I'm still here just like the old me promised, to stay and wait.</p>
+            <p>I don't have the rights anymore to say it so I'll just say, Happy Birthday and always take good care of yourself because I know just how much you let yourself be eaten away by stress and anxiety. Thank you.</p>
         </div>
     </div>
 </body>
