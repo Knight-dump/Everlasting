@@ -11,6 +11,7 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f9;
+            position: relative;
         }
         .container {
             margin-top: 100px;
@@ -49,6 +50,11 @@
                 opacity: 1;
             }
         }
+
+        /* Optional: style the audio player */
+        audio {
+            display: none; /* Hides the audio controls */
+        }
     </style>
     <script>
         let poemLines = [];
@@ -79,6 +85,12 @@
     </script>
 </head>
 <body>
+    <!-- Add background audio -->
+    <audio autoplay loop>
+        <source src="I-Wanna-Be-Yours.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="container">
         <h1>Do you believe in "Everlasting?"</h1>
         <button class="yes-button" onclick="showPoem()">Yes</button>
