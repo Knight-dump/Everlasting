@@ -11,7 +11,6 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f9;
-            position: relative;
         }
         .container {
             margin-top: 100px;
@@ -44,16 +43,18 @@
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
-
         @keyframes fadeIn {
             to {
                 opacity: 1;
             }
         }
-
-        /* Optional: style the audio player */
-        audio {
-            display: none; /* Hides the audio controls */
+        /* Hide the iframe to only play sound */
+        .youtube-audio {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 0;
+            height: 0;
         }
     </style>
     <script>
@@ -85,11 +86,13 @@
     </script>
 </head>
 <body>
-    <!-- Add background audio -->
-    <audio autoplay loop>
-        <source src="I-Wanna-Be-Yours.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Invisible YouTube audio player -->
+    <iframe 
+        class="youtube-audio" 
+        src="https://www.youtube.com/embed/xtsWsebfEtw?autoplay=1&loop=1&playlist=xtsWsebfEtw&mute=0" 
+        frameborder="0" 
+        allow="autoplay">
+    </iframe>
 
     <div class="container">
         <h1>Do you believe in "Everlasting?"</h1>
