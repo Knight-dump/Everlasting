@@ -38,10 +38,38 @@
             background-color: #f44336;
             color: white;
         }
+        .poem p {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
     </style>
     <script>
+        let poemLines = [];
+        let currentLine = 0;
+
         function showPoem() {
-            document.getElementById('poem').style.display = 'block';
+            const poem = document.getElementById('poem');
+            poem.style.display = 'block';
+            poemLines = poem.getElementsByTagName('p');
+            currentLine = 0;
+
+            revealNextLine();
+        }
+
+        function revealNextLine() {
+            if (currentLine < poemLines.length) {
+                poemLines[currentLine].style.display = 'block';
+                poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
+                currentLine++;
+                setTimeout(revealNextLine, 1000);  // Delay for the next line to appear
+            }
         }
 
         function kickUser() {
