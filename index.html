@@ -50,61 +50,67 @@
         }
     </style>
     <script>
-        let poemLines = [];
-        let currentLine = 0;
         let player;
+        let currentLine = 0;
 
-        // YouTube Player API Script
+        // Initialize YouTube Player
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-audio', {
                 videoId: 'xtsWsebfEtw', // Replace with your YouTube video ID
-                events: {
-                    onReady: function(event) {
-                        // Player is ready
-                    }
-                },
                 playerVars: {
                     autoplay: 0, // Will autoplay when triggered
                     loop: 1,
-                    playlist: 'xtsWsebfEtw', // Loop the video
-                    controls: 0, // Hide video controls
+                    playlist: 'xtsWsebfEtw', // Ensures looping
+                    controls: 0, // Hides controls
                     showinfo: 0,
                     modestbranding: 1,
-                    mute: 0
+                    mute: 0 // Ensure sound is not muted
+                },
+                events: {
+                    onReady: onPlayerReady
                 }
             });
         }
 
-        function showPoem() {
-            // Play audio when "Yes" is clicked
-            player.playVideo();
-
-            const poem = document.getElementById('poem');
-            poem.style.display = 'block';
-            poemLines = poem.getElementsByTagName('p');
-            currentLine = 0;
-
-            revealNextLine();
+        function onPlayerReady(event) {
+            console.log('Player ready');
         }
 
-        function revealNextLine() {
-            if (currentLine < poemLines.length) {
-                poemLines[currentLine].style.display = 'block';
-                poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
-                currentLine++;
-                setTimeout(revealNextLine, 1000); // Delay for the next line to appear
+        function playAudio() {
+            if (player) {
+                player.playVideo(); // Start playback immediately
+            } else {
+                console.error('Player not initialized');
             }
+        }
+
+        function showPoem() {
+            playAudio(); // Trigger audio playback
+            const poem = document.getElementById('poem');
+            poem.style.display = 'block';
+            const poemLines = poem.getElementsByTagName('p');
+            currentLine = 0;
+
+            function revealNextLine() {
+                if (currentLine < poemLines.length) {
+                    poemLines[currentLine].style.display = 'block';
+                    poemLines[currentLine].style.animation = `fadeIn 1s forwards`;
+                    currentLine++;
+                    setTimeout(revealNextLine, 1000); // Delay for the next line to appear
+                }
+            }
+            revealNextLine();
         }
 
         function kickUser() {
             alert('You have chosen "No". Redirecting...');
-            window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds'; // Replace with your desired URL
+            window.location.href = 'https://www.poetryfoundation.org/poems/45106/sonnet-116-let-me-not-to-the-marriage-of-true-minds';
         }
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <!-- YouTube audio player -->
+    <!-- Hidden YouTube player -->
     <div id="youtube-audio"></div>
 
     <div class="container">
